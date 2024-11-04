@@ -16,8 +16,8 @@ export default function Home() {
           priority
         />
         <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10" />
-        <div className="container mx-auto px-4 h-full flex items-center relative">
-          <div className="max-w-2xl">
+        <div className="container mx-auto px-4 h-full flex items-center justify-center relative">
+          <div className="max-w-2xl text-center">
             <div className="inline-block px-4 py-2 bg-[#e5d3b3]/10 rounded-full border border-[#e5d3b3]/20 mb-6">
               <span className="text-[#e5d3b3] text-sm">
                 Welcome to Your Community Portal
@@ -32,7 +32,7 @@ export default function Home() {
               track maintenance requests, access community updates, and stay
               connected.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/register"
                 className="bg-[#8b9b7c] hover:bg-[#7a8a6c] text-white text-center text-lg 
@@ -47,22 +47,6 @@ export default function Home() {
               >
                 Sign In
               </Link>
-            </div>
-          </div>
-          {/* Decorative Element */}
-          <div className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2">
-            <div
-              className="w-[400px] h-[400px] rounded-2xl border border-[#e5d3b3]/20 
-              bg-gradient-to-br from-[#e5d3b3]/10 to-transparent backdrop-blur-sm p-6"
-            >
-              <div className="relative w-full h-full">
-                <Image
-                  src="/building.png" // Add a decorative building image
-                  alt="Chateaux de Paris Building"
-                  fill
-                  className="object-contain"
-                />
-              </div>
             </div>
           </div>
         </div>

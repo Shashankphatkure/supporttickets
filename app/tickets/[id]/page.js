@@ -2,19 +2,27 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  FiArrowLeft,
+  FiMessageCircle,
+  FiPaperclip,
+  FiSend,
+} from "react-icons/fi";
+import StatusBadge from "@/components/StatusBadge";
 
 // Dummy data for demonstration
 const dummyTicket = {
   id: 1,
-  title: "Leaking Faucet",
+  title: "Leaking Faucet in Master Bathroom",
   category: "Maintenance",
   status: "in-progress",
   priority: "normal",
   description:
     "The kitchen faucet has been leaking consistently for the past two days. Water is dripping even when the handle is fully closed.",
-  createdAt: "2024-03-15",
-  lastUpdated: "2024-03-16",
-  images: [],
+  createdAt: "2024-03-15T10:30:00Z",
+  lastUpdated: "2024-03-16T14:30:00Z",
+  unit: "304",
+  images: ["/sample-image.jpg"],
   updates: [
     {
       id: 1,
@@ -45,18 +53,8 @@ export default function TicketDetail({ params }) {
     setNewComment("");
   };
 
-  const getStatusColor = (status) => {
-    const colors = {
-      open: "bg-yellow-500",
-      "in-progress": "bg-blue-500",
-      resolved: "bg-green-500",
-      closed: "bg-gray-500",
-    };
-    return colors[status] || "bg-gray-500";
-  };
-
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#4a0404] to-[#2d0202] py-8">
+    <main className="py-8">
       <div className="container mx-auto px-4">
         <div className="card max-w-4xl mx-auto">
           {/* Header */}
@@ -64,46 +62,47 @@ export default function TicketDetail({ params }) {
             <div>
               <Link
                 href="/tickets"
-                className="text-[#e5d3b3]/70 hover:text-[#e5d3b3] transition mb-2 inline-block"
+                className="text-accent/70 hover:text-accent flex items-center gap-2 mb-2"
               >
-                ← Back to Tickets
+                <FiArrowLeft /> Back to Tickets
               </Link>
-              <h1 className="text-3xl font-serif text-[#e5d3b3]">
-                {ticket.title}
-              </h1>
+              <h1 className="section-title mb-2">{ticket.title}</h1>
+              <div className="flex items-center gap-4 text-accent/70">
+                <span>Ticket #{ticket.id.toString().padStart(5, "0")}</span>
+                <span>•</span>
+                <span>Unit {ticket.unit}</span>
+                <span>•</span>
+                <StatusBadge status={ticket.status} />
+              </div>
             </div>
-            <span
-              className={`px-3 py-1 rounded text-sm text-white ${getStatusColor(
-                ticket.status
-              )}`}
-            >
-              {ticket.status}
-            </span>
           </div>
 
           {/* Ticket Details */}
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="md:col-span-2 space-y-6">
-              <div>
-                <h2 className="text-xl font-serif text-[#e5d3b3] mb-3">
+              <div className="card bg-background-glass">
+                <h2 className="text-xl font-serif text-accent mb-3">
                   Description
                 </h2>
-                <p className="text-[#e5d3b3]/90">{ticket.description}</p>
+                <p className="text-accent/90">{ticket.description}</p>
               </div>
 
-              {ticket.images.length > 0 && (
-                <div>
-                  <h2 className="text-xl font-serif text-[#e5d3b3] mb-3">
+              {ticket.images?.length > 0 && (
+                <div className="card bg-background-glass">
+                  <h2 className="text-xl font-serif text-accent mb-3">
                     Attachments
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
                     {ticket.images.map((image, index) => (
-                      <div key={index} className="relative aspect-video">
+                      <div
+                        key={index}
+                        className="relative aspect-video rounded-lg overflow-hidden"
+                      >
                         <Image
                           src={image}
                           alt={`Attachment ${index + 1}`}
                           fill
-                          className="object-cover rounded"
+                          className="object-cover"
                         />
                       </div>
                     ))}
@@ -113,28 +112,30 @@ export default function TicketDetail({ params }) {
             </div>
 
             <div className="space-y-4">
-              <div className="bg-[#e5d3b3]/5 p-4 rounded">
-                <h2 className="text-xl font-serif text-[#e5d3b3] mb-3">
-                  Details
-                </h2>
+              <div className="card bg-background-glass">
+                <h2 className="text-xl font-serif text-accent mb-4">Details</h2>
                 <dl className="space-y-2 text-sm">
-                  <div>
-                    <dt className="text-[#e5d3b3]/70">Category</dt>
-                    <dd className="text-[#e5d3b3]">{ticket.category}</dd>
+                  <div className="flex justify-between">
+                    <dt className="text-accent/70">Category</dt>
+                    <dd className="text-accent">{ticket.category}</dd>
                   </div>
-                  <div>
-                    <dt className="text-[#e5d3b3]/70">Priority</dt>
-                    <dd className="text-[#e5d3b3] capitalize">
+                  <div className="flex justify-between">
+                    <dt className="text-accent/70">Priority</dt>
+                    <dd className="text-accent capitalize">
                       {ticket.priority}
                     </dd>
                   </div>
-                  <div>
-                    <dt className="text-[#e5d3b3]/70">Created</dt>
-                    <dd className="text-[#e5d3b3]">{ticket.createdAt}</dd>
+                  <div className="flex justify-between">
+                    <dt className="text-accent/70">Created</dt>
+                    <dd className="text-accent">
+                      {new Date(ticket.createdAt).toLocaleDateString()}
+                    </dd>
                   </div>
-                  <div>
-                    <dt className="text-[#e5d3b3]/70">Last Updated</dt>
-                    <dd className="text-[#e5d3b3]">{ticket.lastUpdated}</dd>
+                  <div className="flex justify-between">
+                    <dt className="text-accent/70">Last Updated</dt>
+                    <dd className="text-accent">
+                      {new Date(ticket.lastUpdated).toLocaleDateString()}
+                    </dd>
                   </div>
                 </dl>
               </div>
@@ -142,43 +143,54 @@ export default function TicketDetail({ params }) {
           </div>
 
           {/* Updates and Comments */}
-          <div className="border-t border-[#e5d3b3]/20 pt-8">
-            <h2 className="text-xl font-serif text-[#e5d3b3] mb-6">Updates</h2>
+          <div className="border-t border-accent/10 pt-8">
+            <h2 className="text-xl font-serif text-accent mb-6">Updates</h2>
 
             <div className="space-y-4 mb-8">
               {ticket.updates.map((update) => (
-                <div key={update.id} className="bg-[#e5d3b3]/5 p-4 rounded">
+                <div key={update.id} className="card bg-background-glass">
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[#e5d3b3] font-medium">
+                    <span className="text-accent font-medium">
                       {update.author}
                     </span>
-                    <span className="text-[#e5d3b3]/70 text-sm">
+                    <span className="text-accent/70 text-sm">
                       {update.timestamp}
                     </span>
                   </div>
-                  <p className="text-[#e5d3b3]/90">{update.content}</p>
+                  <p className="text-accent/90">{update.content}</p>
                 </div>
               ))}
             </div>
 
             {/* Add Comment Form */}
-            <form onSubmit={handleAddComment} className="space-y-4">
-              <div>
-                <label htmlFor="comment" className="block text-[#e5d3b3] mb-2">
-                  Add Comment
-                </label>
+            <form
+              onSubmit={handleAddComment}
+              className="card bg-background-glass"
+            >
+              <h3 className="text-lg font-serif text-accent mb-4">
+                Add Response
+              </h3>
+              <div className="space-y-4">
                 <textarea
-                  id="comment"
                   rows={3}
-                  className="w-full p-2 rounded bg-[#e5d3b3]/10 border border-[#e5d3b3]/20 text-[#e5d3b3]
-                    focus:outline-none focus:border-[#e5d3b3]/50"
+                  className="input-field"
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Type your response here..."
                 />
+                <div className="flex justify-between items-center">
+                  <button
+                    type="button"
+                    className="text-accent/70 hover:text-accent flex items-center gap-2"
+                  >
+                    <FiPaperclip /> Attach Files
+                  </button>
+                  <button type="submit" className="btn-primary">
+                    <FiSend />
+                    Send Response
+                  </button>
+                </div>
               </div>
-              <button type="submit" className="btn-primary">
-                Submit Comment
-              </button>
             </form>
           </div>
         </div>
