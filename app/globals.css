@@ -3,22 +3,83 @@
 @tailwind utilities;
 
 :root {
-  --primary-maroon: #4a0404;
-  --secondary-green: #1c2516;
-  --accent-brown: #e5d3b3;
+  --primary-light: #8b9b7c;
+  --primary: #7a8a6c;
+  --primary-dark: #2a3a1f;
+
+  --secondary-light: #6b1515;
+  --secondary: #4a0404;
+  --secondary-dark: #2d0202;
+
+  --accent-light: #f5e3c3;
+  --accent: #e5d3b3;
+  --accent-dark: #d5c3a3;
 }
 
 body {
-  color: #e5d3b3;
-  background: #2d0202;
+  color: var(--accent);
+  background: var(--secondary-dark);
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-[#4a0404] text-[#e5d3b3] px-6 py-2 rounded hover:bg-[#3d0303] transition;
+    @apply bg-primary hover:bg-primary-light text-white px-6 py-3 rounded-lg
+      transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-accent text-accent hover:bg-accent/10
+      transition-all rounded-lg text-center py-3 px-8 hover:scale-105;
   }
 
   .card {
-    @apply bg-[#1c2516]/80 p-8 rounded-lg;
+    @apply bg-background-card rounded-xl border border-accent/10
+      hover:border-accent/20 transition-all p-6 shadow-lg;
   }
+
+  .input-field {
+    @apply w-full p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent
+      focus:outline-none focus:border-accent/50 transition-colors;
+  }
+
+  .glass-panel {
+    @apply bg-background-glass backdrop-blur-sm border border-accent/20 rounded-xl;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-serif text-accent mb-4;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-b from-secondary-light via-secondary to-secondary-dark;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background-card;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full hover:bg-primary-light transition-colors;
+}
+
+/* Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
