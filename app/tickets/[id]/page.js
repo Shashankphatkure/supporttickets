@@ -8,7 +8,7 @@ import {
   FiPaperclip,
   FiSend,
 } from "react-icons/fi";
-import StatusBadge from "@/components/StatusBadge";
+import StatusBadge from "../../components/StatusBadge";
 
 // Dummy data for demonstration
 const dummyTicket = {

@@ -18,17 +18,6 @@ export default function StatusBadge({ status, size = "default" }) {
       rounded-full border font-medium inline-flex items-center gap-1.5`;
   };
 
-  const getStatusIcon = () => {
-    const icons = {
-      open: "⭕",
-      "in-progress": "🔄",
-      resolved: "✅",
-      closed: "⚪",
-      urgent: "🔴",
-    };
-    return icons[status] || icons.closed;
-  };
-
   return (
     <span className={getStatusStyles()}>
       <span className="w-1.5 h-1.5 rounded-full bg-current" />
