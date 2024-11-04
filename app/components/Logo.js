@@ -14,7 +14,7 @@ export default function Logo({ size = "default" }) {
     <Link href="/" className="flex items-center gap-4">
       <div className="relative">
         <Image
-          src="/logo.png"
+          src="/logo.jpg"
           alt="Chateaux de Paris HOA"
           width={width}
           height={height}
