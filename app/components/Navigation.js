@@ -1,21 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useUser } from "../contexts/UserContext";
+import UserProfileMenu from "./UserProfileMenu";
 
 export default function Navigation() {
-  const { user, logout } = useUser();
-
-  const handleLogout = async () => {
-    const success = await logout();
-    if (success) {
-      // The page will automatically redirect due to auth state change
-      window.location.href = "/";
-    }
-  };
+  const { user } = useUser();
 
   return (
-    <nav>
-      <ul className="flex gap-6">
+    <nav className="hidden md:block">
+      <ul className="flex items-center gap-6">
         {user ? (
           <>
             <li>
@@ -27,12 +20,7 @@ export default function Navigation() {
               </Link>
             </li>
             <li>
-              <button
-                onClick={handleLogout}
-                className="text-[#e5d3b3] hover:text-[#8b9b7c] transition"
-              >
-                Logout
-              </button>
+              <UserProfileMenu />
             </li>
           </>
         ) : (
