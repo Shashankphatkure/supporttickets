@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-maroon: #4a0404;
+  --secondary-green: #1c2516;
+  --accent-brown: #e5d3b3;
+}
+
+body {
+  color: #e5d3b3;
+  background: #2d0202;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#4a0404] text-[#e5d3b3] px-6 py-2 rounded hover:bg-[#3d0303] transition;
+  }
+
+  .card {
+    @apply bg-[#1c2516]/80 p-8 rounded-lg;
+  }
+}
